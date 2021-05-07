@@ -1,0 +1,59 @@
+Name:           sr-build
+Version:        1.0
+License:        BSD3
+License-File:   COPYING
+Author:         David Fox, Clifford Beshers
+Category:       Unclassified
+Synopsis:       Shelly and Cabal dependencies for building client/server ghcjs/ghc  packages
+Description:
+  When using Shelly to write build scripts, it helps to include its dependencies in the cabal file to make sure the .ghc.environment file
+  lists those dependencies, otherwise runghc dies the second time around.
+Maintainer:     David Fox <dsf@seereason.com>, Clifford Beshers <beshers@seereason.com>
+Homepage:       https://github.com/seereason/sr-build
+Build-Type:     Simple
+Cabal-Version:  >= 1.10
+Tested-With: GHC==8.6.5
+
+Library
+  default-language: Haskell2010
+  GHC-Options: -Wall -Wredundant-constraints
+  Build-Depends:
+    base >= 4.9 && < 5,
+    async,
+    base64-bytestring,
+    bytestring,
+    bzlib,
+    Cabal,
+    containers,
+    Diff,
+    directory,
+    enclosed-exceptions,
+    exceptions,
+    fgl,
+    filemanip,
+    filepath,
+    hslogger,
+    ListLike,
+    mtl,
+    parsec,
+    pretty,
+    pureMD5,
+    QuickCheck >= 2 && < 3,
+    SHA,
+    shelly,
+    text,
+    time >= 1.1,
+    transformers,
+    unexceptionalio-trans,
+    unix,
+    Unixutils >= 1.51
+  Default-Extensions: ConstraintKinds, CPP, DataKinds, DeriveDataTypeable, DeriveFunctor, DeriveGeneric
+  Default-Extensions: FlexibleInstances, FlexibleContexts, MultiParamTypeClasses, RankNTypes
+  Default-Extensions: ScopedTypeVariables, StandaloneDeriving, TupleSections, TypeApplications, TypeFamilies
+  Exposed-modules:
+    SeeReason.Build,
+    SeeReason.Cabal,
+    SeeReason.IO,
+    SeeReason.Text
+
+
