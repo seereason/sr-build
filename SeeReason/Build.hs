@@ -157,9 +157,12 @@ linkMessagePrefix = ((\t -> "Linking " <> t <> "/") . Text.pack) <$> getCurrentD
 sumpath :: String
 sumpath = "client.sha256"
 
+unFilePath :: Shelly.FilePath -> String
+unFilePath = unpack . toTextIgnore
+
 writeClientBinDir :: Shelly.FilePath -> Text -> Sh ()
 writeClientBinDir dir path =
-  liftIO $ testAndWriteBackup (unpack (toTextIgnore (dir </> "ClientBinDir.hs")))
+  liftIO $ testAndWriteBackup (unFilePath (dir </> "ClientBinDir.hs"))
     (Text.unlines
        ["-- This module is written by the build.hs script if it is absent.  If it is present its content",
         "-- is validated and if there is a change the script will fail.  In that case the new version must",
