@@ -194,7 +194,7 @@ writeServerVersion dir = do
     liftIO $ putStrLn ("server diff sig: " <> sig)
   v <- (read . unpack) <$> run "git" ["log", "-1", "--pretty=format:ProgramVersion {_gitCommit=\"%H\", _gitAuthorDate=\"%ai\", _localChanges=\"\"}"]
   let v' = v {_localChanges = diff}
-  liftIO $ (unpack (toTextIgnore (dir </> "ServerVersion.hs"))) $
+  liftIO $ testAndWriteBackup (unpack (toTextIgnore (dir </> "ServerVersion.hs"))) $
     (Text.unlines ["module ServerVersion where",
                 "import Base.ProgramVersion",
                 "serverVersion :: ProgramVersion",
