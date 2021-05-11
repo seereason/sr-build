@@ -10,7 +10,8 @@
 -- I tried to parse it with aeson and ran into minutiae.
 -- There may be a cabal function that reads this, though I only find the one that writes it out.
 
-
+-- https://www.haskell.org/cabal/release/latest/doc/users-guide/nix-local-build.html
+-- See section 5.3.3
 
 import Data.ByteString.Lazy as BS (ByteString, readFile)
 import Data.Aeson (Object, Array, decode , (.:), FromJSON(..))
