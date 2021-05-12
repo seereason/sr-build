@@ -21,7 +21,8 @@ Library
     SeeReason.Build,
     SeeReason.Cabal,
     SeeReason.IO,
-    SeeReason.Text
+    SeeReason.Text,
+    SeeReason.ProgramVersion
   Build-Depends:
     base >= 4.9 && < 5,
     async,
@@ -29,6 +30,7 @@ Library
     bytestring,
     bzlib,
     Cabal,
+    cereal,
     containers,
     Diff,
     directory,
@@ -44,8 +46,13 @@ Library
     pretty,
     pureMD5,
     QuickCheck >= 2 && < 3,
+    safe,
+    safecopy,
     SHA,
     shelly,
+    sr-extra,
+    template-haskell,
+    th-lift,
     text,
     time >= 1.1,
     transformers,
