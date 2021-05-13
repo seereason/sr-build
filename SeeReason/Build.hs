@@ -163,7 +163,7 @@ unFilePath = unpack . toTextIgnore
 writeClientBinDir :: Shelly.FilePath -> Text -> Sh ()
 writeClientBinDir dir path = do
   sumpath' <- (pack . show) <$> (liftIO $ canonicalizePath sumpath)
-  path' <- (pack . show) <$> (liftIO $ canonicalizePath ("../" <> unpack path  <> "/.."))
+  path' <- (pack . show) <$> (liftIO $ canonicalizePath (unpack path))
   liftIO $ testAndWriteBackup (unFilePath (dir </> "ClientBinDir.hs"))
     (Text.unlines
        ["-- This module is written by the build.hs script if it is absent.  If it is present its content",
