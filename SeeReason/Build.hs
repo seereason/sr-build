@@ -24,7 +24,7 @@ import Prelude hiding (putStrLn, show)
 import Shelly (asyncSh, toTextIgnore)
 import Shelly.Lifted as Shelly hiding (command, run, run_, FilePath)
 import qualified Shelly.Lifted as Shelly (run, run_, FilePath)
-import System.Directory (getCurrentDirectory, doesFileExist)
+import System.Directory (canonicalizePath, getCurrentDirectory, doesFileExist)
 import System.Environment (getArgs, lookupEnv)
 import System.IO (BufferMode(LineBuffering), hSetBuffering, stderr, stdout, )
 import Text.Parsec
@@ -161,7 +161,9 @@ unFilePath :: Shelly.FilePath -> String
 unFilePath = unpack . toTextIgnore
 
 writeClientBinDir :: Shelly.FilePath -> Text -> Sh ()
-writeClientBinDir dir path =
+writeClientBinDir dir path = do
+  sumpath' <- liftIO . pack . show (canonicalizePath sumpath)
+  path' <- liftIO . pack . show (canonicalizePath (".." </> unpack path  </> ".."))
   liftIO $ testAndWriteBackup (unFilePath (dir </> "ClientBinDir.hs"))
     (Text.unlines
        ["-- This module is written by the build.hs script if it is absent.  If it is present its content",
@@ -175,8 +177,8 @@ writeClientBinDir dir path =
         "import Language.Haskell.TH.Syntax (addDependentFile)",
         "clientBinDir :: FilePath -> IO FilePath",
         "clientBinDir _ =",
-        "  let _sum = $(addDependentFile " <> pack (show ("../" <> sumpath)) <> " >> embedFile " <> pack (show ("../" <> sumpath)) <> ") in",
-        "  pure " <> pack (show ("../" <> unpack path <> "/.."))])
+        "  let _sum = $(addDependentFile " <> sumpath' <> " >> embedFile " <> sumpath' <> ") in",
+        "  pure " <> path'])
 
 -- Copy of the ProgramVersion type in Base.ProgramVersion.
 -- This could go into a separate library.
