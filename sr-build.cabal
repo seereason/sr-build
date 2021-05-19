@@ -49,7 +49,7 @@ Library
     safe,
     safecopy,
     SHA,
-    shelly,
+    shelly >= 1.9,
     sr-extra,
     template-haskell,
     th-lift,
