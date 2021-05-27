@@ -17,56 +17,71 @@ Tested-With: GHC==8.6.5
 Library
   default-language: Haskell2010
   GHC-Options: -Wall -Wredundant-constraints
+
+  -- Common to both compilers.
   Exposed-modules:
-    SeeReason.Build,
-    SeeReason.Cabal,
-    SeeReason.IO,
-    SeeReason.Text,
     SeeReason.ProgramVersion
   Build-Depends:
     base >= 4.9 && < 5,
-    async,
-    base64-bytestring,
-    bytestring,
-    bzlib,
-    Cabal,
     cereal,
-    containers,
-    Diff,
-    directory,
-    enclosed-exceptions,
-    exceptions,
-    fgl,
-    filemanip,
-    filepath,
-    hslogger,
-    ListLike,
-    mtl,
-    parsec,
-    pretty,
-    pureMD5,
-    QuickCheck >= 2 && < 3,
-    safe,
     safecopy,
-    SHA,
-    shelly >= 1.9,
-    sr-extra,
-    template-haskell,
-    th-lift,
-    text,
-    time >= 1.1,
-    transformers,
-    unexceptionalio-trans,
-    unix,
-    Unixutils >= 1.51
-  Default-Extensions: ConstraintKinds, CPP, DataKinds, DeriveDataTypeable, DeriveFunctor, DeriveGeneric
-  Default-Extensions: FlexibleInstances, FlexibleContexts, MultiParamTypeClasses, RankNTypes
-  Default-Extensions: ScopedTypeVariables, StandaloneDeriving, TupleSections, TypeApplications, TypeFamilies
+    text
+     
+  -- ghc only
+  if !impl(ghcjs) 
+     Exposed-modules:
+        SeeReason.Build,
+        SeeReason.Cabal,
+        SeeReason.IO,
+        SeeReason.ProgramVersionIO,
+        SeeReason.Text
+     Build-Depends:
+       base >= 4.9 && < 5,
+       async,
+       base64-bytestring,
+       bytestring,
+       bzlib,
+       Cabal,
+       cereal,
+       containers,
+       Diff,
+       directory,
+       enclosed-exceptions,
+       exceptions,
+       fgl,
+       filemanip,
+       filepath,
+       hslogger,
+       ListLike,
+       mtl,
+       parsec,
+       pretty,
+       pureMD5,
+       QuickCheck >= 2 && < 3,
+       safe,
+       safecopy,
+       SHA,
+       shelly >= 1.9,
+       sr-extra,
+       template-haskell,
+       th-lift,
+       text,
+       time >= 1.1,
+       transformers,
+       unexceptionalio-trans,
+       unix,
+       Unixutils >= 1.51
+     Default-Extensions: ConstraintKinds, CPP, DataKinds, DeriveDataTypeable, DeriveFunctor, DeriveGeneric
+     Default-Extensions: FlexibleInstances, FlexibleContexts, MultiParamTypeClasses, RankNTypes
+     Default-Extensions: ScopedTypeVariables, StandaloneDeriving, TupleSections, TypeApplications, TypeFamilies
 
 Executable Test
-  Buildable: True
-  default-language: Haskell2010
-  hs-source-dirs: .
-  Main-Is: Test.hs
-  Build-Depends: base, sr-build, text
-  GHC-OPTIONS:         -Wno-missing-home-modules
+  if impl (ghcjs)
+      Buildable: False
+  else
+      Buildable: True
+      default-language: Haskell2010
+      hs-source-dirs: .
+      Main-Is: Test.hs
+      Build-Depends: base, sr-build, text
+      GHC-OPTIONS:         -Wno-missing-home-modules
