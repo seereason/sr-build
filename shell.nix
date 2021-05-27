@@ -1,6 +1,11 @@
 with (import <nixpkgs> { });
 let
   cabalName = "sr-build";
+  client =
+       haskell.packages.ghcjs86.developPackage
+        { root = ./.;
+          name = cabalName;
+        };
   server =
        haskell.packages.ghc865.developPackage
         { root = ./.;
@@ -11,5 +16,10 @@ let
               # add extra ghc libraries here
               [cabal-install]);
         };
-
-  in server
+  merge = { mk ? stdenv.mkDerivation, client, server}:
+      mk
+       { name = client.name + "-and-" + server.name;
+         buildInputs = [ client.buildInputs server.buildInputs ];
+         nativeBuildInputs = [ client.nativeBuildInputs server.nativeBuildInputs ];
+       };
+  in merge {client=client; server=server; }

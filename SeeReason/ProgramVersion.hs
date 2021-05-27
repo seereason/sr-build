@@ -10,6 +10,7 @@ import Data.Text (Text)
 import GHC.Generics
 import Data.SafeCopy
 import Data.Serialize
+import Extra.Serialize
 
 data ProgramVersion =
   ProgramVersion

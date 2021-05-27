@@ -1,8 +1,7 @@
 {-# LANGUAGE DeriveAnyClass, DeriveLift, DeriveGeneric, OverloadedStrings, StandaloneDeriving, TemplateHaskell, UndecidableInstances #-}
 
-module SeeReason.ProgramVersion
-  ( ProgramVersion(..)
-  , programVersion
+module SeeReason.ProgramVersionIO
+  ( programVersion
   ) where
 
 -- import Base.IsBlank (maybeFromBlank)
