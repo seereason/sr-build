@@ -13,7 +13,7 @@ let
           modifier = drv: haskell.lib.addBuildDepends drv
             (with haskell.packages.ghc865;
               # add extra ghc libraries here
-              [cabal-install]);
+              [shelly cabal-install]);
         };
   merge = { mk ? stdenv.mkDerivation, client, server}:
       mk
