@@ -33,6 +33,7 @@ Library
      Exposed-modules:
         SeeReason.Build,
         SeeReason.Cabal,
+        SeeReason.CabalPlan,
         SeeReason.IO,
         SeeReason.ProgramVersionIO,
         SeeReason.Text
@@ -43,6 +44,7 @@ Library
        bytestring,
        bzlib,
        Cabal,
+       cabal-plan,
        cereal,
        containers,
        Diff,
