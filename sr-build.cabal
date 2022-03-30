@@ -1,5 +1,5 @@
 Name:           sr-build
-Version:        1.0
+Version:        1.0.1
 License:        BSD3
 License-File:   COPYING
 Author:         David Fox, Clifford Beshers
@@ -25,7 +25,7 @@ Library
     base >= 4.9 && < 5,
     cereal,
     safecopy,
-    sr-extra,
+    sr-utils,
     text
      
   -- ghc only
