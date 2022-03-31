@@ -65,7 +65,7 @@ Library
        safecopy,
        SHA,
        shelly,
-       sr-extra,
+       sr-utils,
        template-haskell,
        th-lift,
        text,
