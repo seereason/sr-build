@@ -12,10 +12,13 @@ import qualified Text.PrettyPrint as HPJ
 
 -- | Output the difference between two string in the style of diff(1).  This
 -- can be used with Test.HUnit.assertString:  assertString (diffText ("a", "1\n2\n3\n"), ("b", "1\n3\n"))
-diffText :: (String, Text) -> (String, Text) -> String
-diffText (nameA, textA) (nameB, textB) =
-    show (prettyContextDiff
-          (HPJ.text nameA)
-          (HPJ.text nameB)
-          (HPJ.text . unpack)
-          (getContextDiff 2 (split (== '\n') textA) (split (== '\n') textB)))
+
+diffText a b = return "diffText isn't here right now"
+
+-- diffText :: (String, Text) -> (String, Text) -> String
+-- diffText (nameA, textA) (nameB, textB) =
+--     show (prettyContextDiff
+--           (HPJ.text nameA)
+--           (HPJ.text nameB)
+--           (HPJ.text . unpack)
+--           (getContextDiff 2 (split (== '\n') textA) (split (== '\n') textB)))
