@@ -24,19 +24,19 @@ Library
   Build-Depends:
     base >= 4.9 && < 5,
     cereal,
+    Diff,
     safecopy,
     sr-utils,
     text
-     
+
   -- ghc only
-  if !impl(ghcjs) 
+  if !impl(ghcjs)
      Exposed-modules:
         SeeReason.Build,
         SeeReason.Cabal,
         SeeReason.CabalPlan,
         SeeReason.IO,
-        SeeReason.ProgramVersionIO,
-        SeeReason.Text
+        SeeReason.ProgramVersionIO
      Build-Depends:
        base >= 4.9 && < 5,
        async,
@@ -65,7 +65,6 @@ Library
        safecopy,
        SHA,
        shelly,
-       sr-utils,
        template-haskell,
        th-lift,
        text,

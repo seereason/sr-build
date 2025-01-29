@@ -18,16 +18,18 @@ import Control.Exception as E (IOException, throw, try)
 import Control.Monad (when)
 import Control.Monad.Trans (liftIO, MonadIO)
 import Data.Monoid ((<>))
-import Data.Text as Text (length, take, Text)
+import Data.Text as Text (length, lines, take, Text)
 import Data.Text.IO as Text (readFile, writeFile)
 import Data.Time (getCurrentTime, diffUTCTime, getCurrentTime, NominalDiffTime)
 --import Extra.Log (alog)
-import SeeReason.Text (diffText)
+-- import SeeReason.Text (diffText)
+import Data.Algorithm.DiffContext
 import System.Directory (getCurrentDirectory, removeFile, renameFile)
 import System.FilePath.Find as Find
     ((==?), (&&?), always, extension, fileType, FileType(RegularFile), find)
 import System.IO.Error (isDoesNotExistError)
 import System.Log.Logger (logM, Priority(DEBUG, ERROR))
+import Text.PrettyPrint (text)
 
 testAndWriteDotNew :: FilePath -> Text -> IO ()
 testAndWriteDotNew dest new = testAndWrite writeDotNew dest new
@@ -72,8 +74,12 @@ writeDotNew dest old new = do
   logM "Extra.IO" DEBUG ("testAndWriteFile - mismatch, writing " <> show (dest <> ".new"))
   Text.writeFile (dest <> ".new") new
   error ("Generated " <> dest <> ".new does not match existing " <> dest <> ":\n" <>
+         show (prettyContextDiff
+                 (text dest) (text (dest <> ".new")) {-(text . unnumber)-} (text . show)
+                 (getContextDiff (Just 2) (Text.lines old) (Text.lines new))) <>
          -- diffText (dest, old) (dest <> ".new", new) <>
-         "\nIf these changes look reasonable move " <> dest <> ".new to " <> dest <> " and retry.")
+         "\nIf these changes look reasonable move " <>
+         dest <> ".new to " <> dest <> " and retry.")
 
 
 -- | Rename existing file with suffix "~" and write a new file
