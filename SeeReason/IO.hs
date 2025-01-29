@@ -72,7 +72,7 @@ writeDotNew dest old new = do
   logM "Extra.IO" DEBUG ("testAndWriteFile - mismatch, writing " <> show (dest <> ".new"))
   Text.writeFile (dest <> ".new") new
   error ("Generated " <> dest <> ".new does not match existing " <> dest <> ":\n" <>
-         diffText (dest, old) (dest <> ".new", new) <>
+         -- diffText (dest, old) (dest <> ".new", new) <>
          "\nIf these changes look reasonable move " <> dest <> ".new to " <> dest <> " and retry.")
 
 
